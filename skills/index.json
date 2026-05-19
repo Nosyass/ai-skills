@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-19T22:37:32.144Z",
+  "generated_at": "2026-05-19T22:45:14.243Z",
   "skills": [
     {
       "id": "loop-db-call",
@@ -10,6 +10,24 @@
         "generation",
         "analysis",
         "refactor"
+      ],
+      "languages": [
+        "java",
+        "kotlin"
+      ],
+      "gci_refs": [
+        "GCI1",
+        "GCI72"
+      ]
+    },
+    {
+      "id": "poll-call-retry",
+      "path": "skills/poll-call-retry",
+      "version": "0.1.0",
+      "capabilities": [
+        "analysis",
+        "refactor",
+        "generation"
       ],
       "languages": [
         "java",
