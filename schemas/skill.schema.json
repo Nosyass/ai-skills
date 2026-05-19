@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://green-code-initiative.org/schemas/skill.schema.json",
+  "title": "AI Green Skill — machine-readable manifest",
+  "description": "Optional manifest that mirrors the metadata of a SKILL.md so tools can consume the catalog without parsing markdown. The SKILL.md remains the source of truth for humans and AI agents; this manifest is opt-in.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "version", "capabilities"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "description": "Unique kebab-case identifier. MUST match the folder name under skills/."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120,
+      "description": "Short human title; SHOULD match the H1 of SKILL.md."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "One-sentence summary; SHOULD mirror the 'Description' header of SKILL.md."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version. MUST be bumped on any breaking change to Instructions or Output Format."
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date of the last change; SHOULD match SKILL.md 'Last updated'."
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["generation", "analysis", "refactor"] },
+      "description": "Invocation modes this skill is authored for: 'generation' (AI writes new green code), 'analysis' (AI explains existing code violations), 'refactor' (AI transforms existing code). A skill MAY declare several modes; the SKILL.md prose covers all of them."
+    },
+    "languages": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9+#.-]+$" },
+      "description": "Programming languages this skill applies to, lowercase (java, python, javascript, sql, php, csharp, rust, html, ...). Omit or leave empty when the skill is language-agnostic."
+    },
+    "agent_targets": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string" },
+      "description": "Free-form list of intended agent runtimes (e.g. 'copilot', 'cursor', 'claude', 'chatgpt', 'codex'). Informational; not enforced."
+    },
+    "gci_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^(GCI|CRJVM|CR)[A-Z0-9/]+$" },
+      "description": "Optional links to creedengo-rules-specifications rule IDs. RECOMMENDED for skills that cover a specific rule, so external tools (rule engines, IDEs, MCP servers) can bind a deterministic violation to this skill without parsing markdown."
+    },
+    "rgesn_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string" },
+      "description": "Optional links to RGESN criteria IDs (e.g. 'ALG-1.1')."
+    },
+    "severity": {
+      "enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"],
+      "description": "Indicative severity when this skill flags an issue. Skills with capability='generation' only MAY omit this."
+    },
+    "category": {
+      "enum": ["CPU_IO", "MEMORY", "NETWORK_IO", "DATA_TRANSFER", "RESOURCE_LEAK", "STORAGE", "RENDERING", "ALGORITHM", "OTHER"]
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" }
+    },
+    "triggers": {
+      "type": "array",
+      "description": "Hints for programmatic consumers. Each entry is one of: rule_match (creedengo ID), keyword (substring), ast_query (engine-specific), file_glob.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "minProperties": 1,
+        "maxProperties": 1,
+        "properties": {
+          "rule_match": { "type": "string", "pattern": "^(GCI|CRJVM|CR)[A-Z0-9/]+$" },
+          "keyword":    { "type": "string", "minLength": 2 },
+          "ast_query":  { "type": "string", "minLength": 2 },
+          "file_glob":  { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Authoritative references mirrored from SKILL.md 'Source of Truth' table.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "url"],
+        "properties": {
+          "name": { "type": "string", "minLength": 2 },
+          "url":  { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "maintainers": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^@[A-Za-z0-9_.-]+$" }
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX identifier (e.g. 'Apache-2.0'). Defaults to the repository license when omitted."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Free-form extension area for downstream consumers. Validators MUST ignore unknown keys here."
+    }
+  }
+}
+
