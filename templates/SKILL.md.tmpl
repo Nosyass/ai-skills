@@ -1,0 +1,118 @@
+# SKILL — {{name}}
+
+> **Version:** {{version}}
+> **Last updated:** {{last_updated}}
+> **Agent targets:** {{agent_targets_human}}
+> **File name:** `SKILL.md` (inside `skills/{{id}}/`)
+> **Description:** {{description}}
+
+---
+
+## Purpose
+
+{{purpose}}
+
+---
+
+## Trigger
+
+This skill is activated when:
+
+{{triggers_human}}
+
+---
+
+## Source of Truth
+
+The agent **must** consult the following references before producing any output.
+It must **never** invent information not present in these sources.
+
+{{sources_table}}
+
+---
+
+## Instructions
+
+Execute the following steps **in order**. Do not skip any step.
+
+1. **Identify and validate the input**
+   {{step_identify}}
+
+2. **Consult the source of truth**
+   {{step_consult}}
+
+3. **Analyse or transform**
+   {{step_analyse}}
+
+4. **Produce output**
+   {{step_produce}}
+
+5. **Self-check before responding** *(mandatory — never skip)*
+   {{step_selfcheck}}
+
+---
+
+## Fallback Behavior
+
+| Situation | Agent action |
+|---|---|
+| Input is missing or cannot be determined | Ask the user the exact question defined for this skill |
+| No results found after full analysis | Produce the "no results" output block defined below |
+| A required source of truth is unreachable | Inform the user; do not hallucinate content from memory |
+
+---
+
+## Output Format
+
+{{output_format}}
+
+---
+
+## Constraints
+
+The agent **must never**:
+
+- [ ] Invent information not present in the declared sources of truth
+- [ ] Skip the self-check step before responding
+- [ ] Produce output in a format different from the one defined above
+- [ ] Proceed when the input is ambiguous — always ask first
+{{extra_constraints}}
+
+---
+
+## Examples
+
+### Example 1 — happy path
+
+**Input:**
+
+    {{example1_input}}
+
+**Expected output:**
+
+    {{example1_output}}
+
+### Example 2 — edge case
+
+**Input:**
+
+    {{example2_input}}
+
+**Expected output:**
+
+    {{example2_output}}
+
+---
+
+## Related Skills
+
+{{related_skills}}
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---|---|---|
+| {{version}} | {{last_updated}} | Initial version |
+
