@@ -1,6 +1,15 @@
 {
   "version": 1,
-  "generated_at": "1970-01-01T00:00:00Z",
-  "skills": []
+  "generated_at": "2026-05-19T00:00:00Z",
+  "skills": [
+    {
+      "id": "loop-db-call",
+      "path": "skills/loop-db-call",
+      "version": "0.1.0",
+      "capabilities": ["generation", "analysis", "refactor"],
+      "languages": ["java", "kotlin"],
+      "gci_refs": ["GCI1", "GCI72"]
+    }
+  ]
 }
 

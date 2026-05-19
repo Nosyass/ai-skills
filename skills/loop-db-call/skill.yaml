@@ -1,0 +1,65 @@
+id: loop-db-call
+name: Detect & Fix DB Call in a Loop (N+1)
+description: Identify database access performed inside a loop (N+1 problem), explain the energy/perf impact, and propose a batched fix.
+version: 0.1.0
+last_updated: 2026-05-19
+
+capabilities:
+  - generation
+  - analysis
+  - refactor
+
+languages:
+  - java
+  - kotlin
+
+agent_targets:
+  - copilot
+  - cursor
+  - claude
+  - chatgpt
+  - codex
+
+gci_refs:
+  - GCI1
+  - GCI72
+
+severity: HIGH
+category: NETWORK_IO
+
+tags:
+  - jpa
+  - jdbc
+  - n-plus-1
+  - batch
+  - spring-data
+
+triggers:
+  - rule_match: GCI1
+  - rule_match: GCI72
+  - keyword: "repository."
+  - keyword: "jdbcTemplate."
+  - keyword: "entityManager.find"
+
+sources:
+  - name: Creedengo GCI1 (Java)
+    url: https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/src/main/rules/GCI1/java/GCI1.asciidoc
+  - name: Creedengo GCI72 (Java)
+    url: https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/src/main/rules/GCI72/java/GCI72.asciidoc
+
+maintainers:
+  - "@Nosyass"
+
+license: Apache-2.0
+
+# ── Free-form area for downstream tools (one key per namespace) ────────────
+extensions:
+  greenAISkills:                 # consumed by https://github.com/GreenAISkills
+    scoreImpact: 30              # points removed from the Green Score per occurrence
+    autoFixAvailable: true       # can be applied via the "refactor" capability
+    annotation:
+      highlight: background
+      severity: high
+  copilot:
+    activationGlob: "**/*.{java,kt}"
+

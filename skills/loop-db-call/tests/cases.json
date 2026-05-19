@@ -1,0 +1,34 @@
+[
+  {
+    "name": "analysis detects classic for-loop N+1",
+    "capability": "analysis",
+    "input_file": "examples/non-compliant.java",
+    "expect": {
+      "violations": [{ "gci_ref": "GCI1" }],
+      "min_score_delta": 20
+    }
+  },
+  {
+    "name": "analysis is silent on compliant code",
+    "capability": "analysis",
+    "input_file": "examples/compliant.java",
+    "expect": { "violations": [] }
+  },
+  {
+    "name": "refactor produces findAllById",
+    "capability": "refactor",
+    "input_file": "examples/non-compliant.java",
+    "expect_contains": ["findAllById"]
+  },
+  {
+    "name": "generation forbids repo.findById inside for",
+    "capability": "generation",
+    "prompt": "Write a Java method that loads User entities for a List<Integer> ids.",
+    "expect_not_contains": [
+      "for (Integer",
+      "repository.findById"
+    ],
+    "expect_contains": ["findAllById"]
+  }
+]
+
