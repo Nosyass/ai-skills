@@ -1,0 +1,36 @@
+id: poll-call-retry
+name: DB call inside a loop (N+1)
+description: Detect, explain and refactor database calls performed inside a loop.
+version: 0.1.0
+last_updated: '2026-05-19'
+capabilities:
+  - analysis
+  - refactor
+  - generation
+languages:
+  - java
+  - kotlin
+agent_targets:
+  - copilot
+  - cursor
+  - claude
+gci_refs:
+  - GCI1
+  - GCI72
+severity: CRITICAL
+category: NETWORK_IO
+tags:
+  - jpa
+  - n-plus-1
+  - batch
+triggers:
+  - rule_match: GCI1
+  - rule_match: GCI72
+  - keyword: repository.
+sources:
+  - name: Creedengo GCI1
+    url: >-
+      https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/src/main/rules/GCI1/java/GCI1.asciidoc
+maintainers:
+  - '@your-handle'
+license: Apache-2.0
